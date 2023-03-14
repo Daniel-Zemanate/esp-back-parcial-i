@@ -1,0 +1,16 @@
+server:
+  port: ${PORT:8888}
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Daniel-Zemanate/esp-back-parcial-i-config.git
+          default-label: main
+          force-pull: true
+          search-paths: configuration
+  profiles:
+    active: dev
