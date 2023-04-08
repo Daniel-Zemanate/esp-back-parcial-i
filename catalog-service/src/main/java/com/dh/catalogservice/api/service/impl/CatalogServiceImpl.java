@@ -3,18 +3,17 @@ package com.dh.catalogservice.api.service.impl;
 import com.dh.catalogservice.api.service.CatalogService;
 import com.dh.catalogservice.domain.model.dto.CatalogWS;
 import com.dh.catalogservice.domain.model.dto.MovieWS;
-import com.dh.catalogservice.domain.repository.MovieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dh.catalogservice.domain.repository.feing.MovieFeingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CatalogServiceImpl implements CatalogService {
-	private MovieRepository movieRepository;
+	private MovieFeingRepository movieRepository;
 
 
-	public CatalogServiceImpl(MovieRepository movieRepository) {
+	public CatalogServiceImpl(MovieFeingRepository movieRepository) {
 		this.movieRepository = movieRepository;
 	}
 
