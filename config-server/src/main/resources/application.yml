@@ -12,5 +12,3 @@ spring:
           default-label: main
           force-pull: true
           search-paths: configuration
-  profiles:
-    active: dev
