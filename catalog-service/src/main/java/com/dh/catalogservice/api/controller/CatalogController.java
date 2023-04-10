@@ -1,7 +1,7 @@
 package com.dh.catalogservice.api.controller;
 
 import com.dh.catalogservice.api.service.CatalogService;
-import com.dh.catalogservice.domain.model.dto.CatalogWS;
+import com.dh.catalogservice.domain.model.dto.CatalogDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class CatalogController {
     }
 
     @GetMapping("/{genre}")
-    ResponseEntity<CatalogWS> getCatalogByGenre(@PathVariable String genre) {
+    ResponseEntity<CatalogDTO> getCatalogByGenre(@PathVariable String genre) {
 
         return ResponseEntity.ok(catalogService.findGenreInCatalog(genre));
     }

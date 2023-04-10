@@ -1,10 +1,8 @@
 package com.dh.catalogservice.api.service;
 
-import com.dh.catalogservice.domain.model.dto.CatalogWS;
-
-import java.util.List;
+import com.dh.catalogservice.domain.model.dto.CatalogDTO;
 
 public interface CatalogService {
 
-    CatalogWS findGenreInCatalog(String genre);
+    CatalogDTO findGenreInCatalog(String genre);
 }
