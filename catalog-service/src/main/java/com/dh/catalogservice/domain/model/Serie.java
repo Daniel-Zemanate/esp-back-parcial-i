@@ -1,7 +1,7 @@
 package com.dh.catalogservice.domain.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class Serie {
 
     private String id;
