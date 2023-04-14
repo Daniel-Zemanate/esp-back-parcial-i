@@ -5,6 +5,7 @@ import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ import java.util.List;
 public interface MovieFeingRepository {
 
     @GetMapping("/movies/{genre}")
-    List<Movie> getMoviesByGenre(@PathVariable String genre);
+    List<Movie> getMoviesByGenre(@PathVariable String genre, @RequestParam(defaultValue = "0") Integer faultPercentage);
 }

@@ -1,7 +1,11 @@
 package com.dh.catalogservice;
 
-import com.dh.catalogservice.domain.model.*;
-import com.dh.catalogservice.domain.repository.ICatalogRepository;
+import com.dh.catalogservice.domain.model.Chapter;
+import com.dh.catalogservice.domain.model.Movie;
+import com.dh.catalogservice.domain.model.Season;
+import com.dh.catalogservice.domain.model.Serie;
+import com.dh.catalogservice.domain.repository.IMovieRepository;
+import com.dh.catalogservice.domain.repository.ISerieRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,13 +25,12 @@ public class CatalogServiceApplication {
 		SpringApplication.run(CatalogServiceApplication.class, args);
 	}
 
-
-	@Bean
-	public CommandLineRunner loadData(ICatalogRepository repository) {
+//	@Bean
+	public CommandLineRunner loadData(ISerieRepository serieRepository, IMovieRepository movieRepository) {
 		String baseUrl = "www.netflix.com/series";
 
 		return (args) -> {
-			if (!repository.findAll().isEmpty()) {
+			if (!serieRepository.findAll().isEmpty() || !movieRepository.findAll().isEmpty()) {
 				return;
 			}
 
@@ -43,15 +46,39 @@ public class CatalogServiceApplication {
 			);
 
 			List<Season> serieASeasons = List.of(
-					new Season(1, serieASeasonAChapters),
-					new Season(2, serieASeasonBChapters)
+					Season.builder().seasonNumber(1).chapters(serieASeasonAChapters).build(),
+					Season.builder().seasonNumber(2).chapters(serieASeasonBChapters).build()
 			);
-			Serie serieA = new Serie(UUID.randomUUID().toString(),"Serie A", "terror", serieASeasons);
 
-			repository.save(new Catalog("Terror"
-					, List.of(Movie.builder().id(1).name("movie1").genre("Terror").build())
-					,List.of(serieA)));
+			//Serie B comedia
+			List<Chapter> serieBSeasonAChapters = List.of(
+					new Chapter("Chapter A", 1, baseUrl + "/comedia/1/season/1/chapter/1"),
+					new Chapter("Chapter B", 2, baseUrl + "/comedia/1/season/1/chapter/2")
+			);
+
+			List<Chapter> serieBSeasonBChapters = List.of(
+					new Chapter("Chapter A", 1, baseUrl + "/comedia/1/season/2/chapter/1"),
+					new Chapter("Chapter B", 2, baseUrl + "/comedia/1/season/2/chapter/2")
+			);
+
+			List<Season> serieBSeasons = List.of(
+					Season.builder().seasonNumber(1).chapters(serieBSeasonAChapters).build(),
+					Season.builder().seasonNumber(2).chapters(serieBSeasonBChapters).build()
+			);
+
+			Serie serieA = Serie.builder().id(UUID.randomUUID().toString()).name("Serie A").genre("terror").seasons(serieASeasons).build();
+			Serie serieB = Serie.builder().id(UUID.randomUUID().toString()).name("Serie B").genre("comedia").seasons(serieBSeasons).build();
+			serieRepository.save(serieA);
+			serieRepository.save(serieB);
+
+
+			movieRepository.save(Movie.builder().name("movie1").genre("Terror").urlStream(baseUrl).build());
+			movieRepository.save(Movie.builder().name("movie2").genre("Terror").urlStream(baseUrl).build());
+			movieRepository.save(Movie.builder().name("movie3").genre("Comedy").urlStream(baseUrl).build());
+			movieRepository.save(Movie.builder().name("movie4").genre("Comedy").urlStream(baseUrl).build());
 
 		};
 	}
+
+
 }

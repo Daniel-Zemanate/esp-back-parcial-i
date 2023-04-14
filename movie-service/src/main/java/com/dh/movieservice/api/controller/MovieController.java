@@ -23,9 +23,10 @@ public class MovieController {
 	}
 
 	@GetMapping("/{genre}")
-	public ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre) {
-		return ResponseEntity.ok().body(movieService.getListByGenre(genre));
+	public ResponseEntity<List<Movie>> getMovieByGenre(@PathVariable String genre, @RequestParam(defaultValue = "0") Integer faultPercentage) {
+		return ResponseEntity.ok().body(movieService.getListByGenre(genre, faultPercentage));
 	}
+
 
 	@PostMapping
 	public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {

@@ -1,15 +1,18 @@
 package com.dh.catalogservice.api.service;
 
-import com.dh.catalogservice.domain.model.Catalog;
+import com.dh.catalogservice.domain.model.Movie;
+import com.dh.catalogservice.domain.model.Serie;
 import com.dh.catalogservice.domain.model.dto.CatalogDTO;
+import com.dh.catalogservice.domain.model.dto.MovieDTO;
+import com.dh.catalogservice.domain.model.dto.SerieDTO;
+
+import java.util.List;
 
 public interface CatalogService {
 
-    CatalogDTO findGenreInCatalog(String genre);
+    CatalogDTO findGenreInCatalog(String genre, Integer faultPercentage);
 
-    Catalog findInSelfDatabase(String genre);
-    CatalogDTO findInSelfDatabaseOff(String genre);
+    CatalogDTO findOffline(String genre);
 
-    CatalogDTO createCatalog(Catalog catalog);
 
 }

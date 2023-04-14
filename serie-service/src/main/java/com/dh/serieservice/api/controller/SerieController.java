@@ -31,7 +31,7 @@ public class SerieController {
     }
 
     @GetMapping("/{genre}")
-    public List<Serie> getSerieByGenre(@PathVariable String genre) {
+    public List<Serie> getSerieByGenre(@PathVariable String genre, @RequestParam(defaultValue = "0") Integer faultPercentage) {
         return serieService.getSeriesBygGenre(genre);
     }
 
